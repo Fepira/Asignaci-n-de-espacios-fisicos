@@ -10,7 +10,7 @@ El script utiliza rutas relativas basadas en la ubicación del archivo ejecutabl
     ├── 01_brutos/                 # Input: Archivos Excel/CSV originales
     └── 03_procesados/             # Output: Resultados de la asignación
 
-🚀 Requisitos Técnicos.
+Requisitos Técnicos.
 El sistema está desarrollado en Python 3.8+ y depende de las siguientes librerías:
 
 - pandas: Procesamiento de estructuras de datos.
@@ -21,7 +21,7 @@ Para instalar las dependencias:
 
     pip install pandas numpy openpyxl
 
-⚙️ Lógica de Funcionamiento.
+Lógica de Funcionamiento.
 El motor de asignación sigue un flujo de cuatro etapas:
 
 1. Ingesta y Limpieza
