@@ -3,6 +3,7 @@ Este proyecto consiste en un motor de asignación basado en Python que optimiza 
 
 Estructura del Proyecto.
 El script utiliza rutas relativas basadas en la ubicación del archivo ejecutable. Se espera la siguiente jerarquía:
+
 .
 ├── scripts/
 │   └── asignador_salas.py        # Código fuente principal
