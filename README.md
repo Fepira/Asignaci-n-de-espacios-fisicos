@@ -35,7 +35,7 @@ Esta es una de las métricas más críticas. Se calcula como:
 $$IS = \frac{\text{Demanda (Cursos con Cupo X)}}{\text{Oferta (Salas con Capacidad} \geq \text{X)}}$$
 
 
-- Los cursos con un IS alto se asignan primero, ya que tienen menos opciones de salas disponibles en el inventario físico.🛠 
+- Los cursos con un IS alto se asignan primero, ya que tienen menos opciones de salas disponibles en el inventario físico.
 
 Especificaciones del Código.
 
