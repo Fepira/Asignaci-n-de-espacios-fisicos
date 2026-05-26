@@ -241,7 +241,7 @@ def main():
         
         df_disp = gestor.generar_reporte_restantes()
         
-        print(f"\n✅ Filas Asignadas: {len(asignados)} | ❌ Fallidas: {len(pendientes)}")
+        print(f"\nFilas Asignadas: {len(asignados)} | Fallidas: {len(pendientes)}")
         
         with pd.ExcelWriter(ruta_final) as writer:
             if asignados: pd.DataFrame(asignados).to_excel(writer, sheet_name='Asignados', index=False)
