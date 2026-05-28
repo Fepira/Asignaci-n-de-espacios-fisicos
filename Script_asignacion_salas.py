@@ -1,24 +1,25 @@
+# ESTE ALGORITMO FUÉ EL UTILIZADO PARA LA ASIGNACIÓN DE ESPACIOS EN EL PERIODO 202625, LA LÓGICA ES LA MISMA QUE LE OTRO SCRIPT, SOLAMENTE QUE SIN EL ÍNDICE.
+
 import pandas as pd
 import numpy as np
 from datetime import datetime, time
 import os
 
-# ==========================================
-# 0. CONFIGURACIÓN DE RUTAS RELATIVAS
-# ==========================================
-# Definimos la base del proyecto (un nivel arriba de donde está el script en /codigo)
+
+# 0. CONFIGURACIÓN DE RUTAS RELATIVAS --------------------------------------------------
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUTA_BRUTOS = os.path.join(BASE_DIR, "datos", "01_brutos")
 RUTA_PROCESADOS = os.path.join(BASE_DIR, "datos", "03_procesados")
 
-# ==========================================
-# 1. CARGA DE DATOS
-# ==========================================
+
+# 1. CARGA DE DATOS ---------------------------------------------------------
 
 def cargar_datos():
     print("--- Cargando archivos desde datos/01_brutos ---")
-    archivo_cursos = os.path.join(RUTA_BRUTOS, "maestro_cursos_202675_simulacion.xlsx")
-    archivo_salones = os.path.join(RUTA_BRUTOS, "maestro_salones 202625.csv")
+    archivo_cursos = os.path.join(RUTA_BRUTOS, "ARCHIVO_CON_CURSOS.xlsx")
+    archivo_salones = os.path.join(RUTA_BRUTOS, "ARCHIVO_CON_SALONES_COMUNES_DISPONIBLES.csv")
 
     if not os.path.exists(archivo_cursos): raise FileNotFoundError(f"Falta: {archivo_cursos}")
     if not os.path.exists(archivo_salones): raise FileNotFoundError(f"Falta: {archivo_salones}")
@@ -34,14 +35,14 @@ def cargar_datos():
     df_salones.columns = df_salones.columns.astype(str).str.upper().str.strip()
     df_salones.columns = df_salones.columns.str.replace('ï»¿', '').str.replace('\ufeff', '')
 
-    # Limpiar días nulos
+    # Limpiar días nulos (Esto nunca lo usé que nunca hubieron días nulos)
     df_cursos = df_cursos.dropna(subset=['DIAS'])
 
     return df_cursos, df_salones
 
-# ==========================================
-# 2. NORMALIZACIÓN (NUEVA LÓGICA DE BLOQUES)
-# ==========================================
+
+# 2. NORMALIZACIÓN (NUEVA LÓGICA DE BLOQUES) ---------------------------------------------
+
 
 CATALOGO_BLOQUES = {
     1: {'ini': 830, 'fin': 945,  'txt': '08:30 - 09:45'},
@@ -111,14 +112,13 @@ def normalizar_datos(df_cursos, df_salones):
     df_cursos['PRIORIDAD_CALC'] = df_cursos.apply(calcular_prioridad, axis=1)
     return df_cursos, df_salones
 
-# ==========================================
-# 3. MOTOR DE ASIGNACIÓN
-# ==========================================
+
+# 3. MOTOR DE ASIGNACIÓN ----------------------------------------------------------------------------------------------
 
 class GestorDeSalas:
     def __init__(self, df_salones, dias_posibles):
         self.salones = df_salones.sort_values(by='CAPACIDAD', ascending=True)
-        self.disp = {}
+        self.disp = {}       #Salones disponibles en cada módulo y día.
         for dia in dias_posibles:
             self.disp[dia] = {str(s): set(CATALOGO_BLOQUES.keys()) for s in self.salones['NUMERO'].unique()}
 
