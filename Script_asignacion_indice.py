@@ -3,22 +3,21 @@ import numpy as np
 from datetime import datetime, time
 import os
 
-# ==========================================
-# 0. CONFIGURACIÓN DE RUTAS RELATIVAS
-# ==========================================
+
+# 0. CONFIGURACIÓN DE RUTAS RELATIVAS -------------------------------------------------------------------
+
 # Definimos la base del proyecto (un nivel arriba de donde está el script en /codigo)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUTA_BRUTOS = os.path.join(BASE_DIR, "datos", "01_brutos")
 RUTA_PROCESADOS = os.path.join(BASE_DIR, "datos", "03_procesados")
 
-# ==========================================
-# 1. CARGA DE DATOS
-# ==========================================
+
+# 1. CARGA DE DATOS -----------------------------------------------------------------------------
 
 def cargar_datos():
     print("--- Cargando archivos desde datos/01_brutos ---")
-    archivo_cursos = os.path.join(RUTA_BRUTOS, "maestro_cursos 202625_30ENERO.xlsx")
-    archivo_salones = os.path.join(RUTA_BRUTOS, "maestro_salones 202625.csv")
+    archivo_cursos = os.path.join(RUTA_BRUTOS, "CURSOS_A_ASIGNAR.xlsx")
+    archivo_salones = os.path.join(RUTA_BRUTOS, "SALONES_COMUNES_DIPONIBLES.csv")
 
     if not os.path.exists(archivo_cursos): raise FileNotFoundError(f"Falta: {archivo_cursos}")
     if not os.path.exists(archivo_salones): raise FileNotFoundError(f"Falta: {archivo_salones}")
@@ -39,9 +38,9 @@ def cargar_datos():
 
     return df_cursos, df_salones
 
-# ==========================================
-# 2. NORMALIZACIÓN (NUEVA LÓGICA DE BLOQUES + SATURACIÓN)
-# ==========================================
+
+# 2. NORMALIZACIÓN (LÓGICA DE BLOQUES + SATURACIÓN) ------------------------------------------------------------
+
 
 CATALOGO_BLOQUES = {
     1: {'ini': 830, 'fin': 945,  'txt': '08:30 - 09:45'},
@@ -74,7 +73,7 @@ def normalizar_datos(df_cursos, df_salones):
             830: [1], 950: [2], 1110: [3], 1230: [4], 1350: [5],
             1510: [6], 1630: [7], 1750: [8], 1910: [9], 2030: [10],
             2020: [10], 2130: [11]
-        }
+        } # En esta parte tenemos las horas de 2030 y 2020 asignados al bloque 10, ya que en términos de asignación se consideran iguales
         return mapa_inicio.get(ini, [])
 
     df_cursos['BLOQUES_REQ'] = df_cursos.apply(extraer_bloques, axis=1)
@@ -98,6 +97,8 @@ def normalizar_datos(df_cursos, df_salones):
         es_regimen = 'CÍCLICO' in estado and 'CONTRACÍCLICO' not in estado
         es_ccl = 'CCL' in materia
         
+        # Sección de cálculo de puntaje de cada curso según su tipo de estudiante, el régimen (Cíclico o Contracíclico) o si CCL
+        
         if es_regimen:
             score += 1000
             score += 200 if es_ccl else 100
@@ -110,9 +111,10 @@ def normalizar_datos(df_cursos, df_salones):
 
     df_cursos['PRIORIDAD_CALC'] = df_cursos.apply(calcular_prioridad, axis=1)
 
-    # ---------------------------------------------------------
-    # NUEVA LÓGICA: CÁLCULO DEL ÍNDICE DE SATURACIÓN
-    # ---------------------------------------------------------
+  
+    # CÁLCULO DEL ÍNDICE DE SATURACIÓN --------------------------------------
+    # Este índice gerarquiza según el cupo que más se repite en relación con las capacidades de sala que más se repiten.
+
     print("--- Calculando Índice de Saturación ---")
     mapa_is = {}
     if 'CUPOS' in df_cursos.columns and 'TIPO_SALON_CODE' in df_cursos.columns:
@@ -136,9 +138,8 @@ def normalizar_datos(df_cursos, df_salones):
 
     return df_cursos, df_salones
 
-# ==========================================
-# 3. MOTOR DE ASIGNACIÓN
-# ==========================================
+
+# 3. MOTOR DE ASIGNACIÓN ------------------------------------------------------------------------------------------
 
 class GestorDeSalas:
     def __init__(self, df_salones, dias_posibles):
@@ -179,9 +180,8 @@ class GestorDeSalas:
                         })
         return pd.DataFrame(reporte)
 
-# ==========================================
-# 4. EJECUCIÓN 
-# ==========================================
+
+# 4. EJECUCIÓN ----------------------------------------------------
 
 def main():
     try:
@@ -189,14 +189,13 @@ def main():
         df_c, df_s = normalizar_datos(df_c, df_s)
         
         # ---------------------------------------------------------
-        # NUEVA LÓGICA: ORDENAR POR PRIORIDAD Y LUEGO POR SATURACIÓN
-        # ---------------------------------------------------------
+        # ORDENAR POR PRIORIDAD Y LUEGO POR SATURACIÓN
         # Ascending=True para PRIORIDAD_CALC (menor puntaje = mejor)
         # Ascending=False para IS_SATURACION (mayor índice = más saturado = se asigna primero)
         # Ascending=False para CUPOS (mayor cupo = se asigna primero si hay empate)
         df_c = df_c.sort_values(by=['PRIORIDAD_CALC', 'IS_SATURACION', 'CUPOS'], ascending=[True, False, False])
         
-        grupos = df_c.groupby(['NRC', 'DIAS'], sort=False)
+        grupos = df_c.groupby(['NRC', 'DIAS'], sort=False) # Se asignan bloques de horarios seguidos, por eso se agrupa por NRC y DIAS
         
         dias_unicos = df_c['DIAS'].unique()
         gestor = GestorDeSalas(df_s, dias_unicos)
