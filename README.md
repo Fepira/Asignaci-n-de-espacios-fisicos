@@ -1,4 +1,4 @@
-Sistema de Asignación Automatizada de Salas (SAAS)
+Script de Asignación Automatizada de Salas
 Este proyecto consiste en un motor de asignación basado en Python que optimiza la distribución de cursos académicos en las salas disponibles de la institución, considerando restricciones de horario, capacidad, tipo de aula y prioridades institucionales.
 
 Requisitos Técnicos.
