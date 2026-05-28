@@ -1,0 +1,91 @@
+﻿EDIFICIO;PISO;NUMERO;CAPACIDAD;TIPO
+Pocuro;Piso 2;C201;40;4
+Pocuro;Piso 2;C202;40;4
+Pocuro;Piso 2;C203;40;4
+Pocuro;Piso 2;C204;40;4
+Pocuro;Piso 2;C207;30;4
+Pocuro;Piso 2;C208;32;4
+Pocuro;Piso 2;C209;32;4
+Pocuro;Piso 2;C210;40;4
+Amberes Norte;Piso 2;A202;45;3
+Amberes Norte;Piso 2;A203;48;3
+Amberes Norte;Piso 2;A204;48;3
+Amberes Norte;Piso 7;A703;45;3
+Amberes Norte;Piso 7;A704;45;3
+Amberes Norte;Piso 7;A705;45;3
+Amberes Norte;Piso 7;A706;64;3
+Amberes Norte;Piso 7;A710;45;3
+Amberes Norte;Piso -1;AS104;30;3
+Amberes Norte;Piso -1;AS106;96;3
+Amberes Norte;Piso -1;AS107;96;3
+Amberes Sur;Piso 2;B201;99;3
+Amberes Sur;Piso 2;B202;99;3
+Amberes Sur;Piso 2;B203;62;3
+Amberes Sur;Piso 2;B204;62;3
+Amberes Sur;Piso 2;B205;62;3
+Amberes Sur;Piso 3;B301;94;3
+Amberes Sur;Piso 3;B302;55;3
+Amberes Sur;Piso 3;B303;55;3
+Amberes Sur;Piso 3;B305;55;3
+Amberes Sur;Piso 4;B401;96;3
+Amberes Sur;Piso 4;B402;56;3
+Amberes Sur;Piso 4;B403;56;3
+Amberes Sur;Piso 4;B404;56;3
+Amberes Sur;Piso 4;B405;55;3
+Amberes Sur;Piso 4;B406;32;3
+Amberes Sur;Piso 4;B407;32;3
+Amberes Sur;Piso 4;B408;42;3
+Amberes Sur;Piso 4;B409;30;3
+Amberes Sur;Piso 4;B410;10;3
+Amberes Sur;Piso 5;B501;96;3
+Amberes Sur;Piso 6;B601;96;3
+Amberes Sur;Piso 6;B602;55;3
+Amberes Sur;Piso 6;B603;55;3
+Amberes Sur;Piso 6;B604;55;3
+Amberes Sur;Piso 6;B605;55;3
+Amberes Sur;Piso 6;B606;25;3
+Pocuro;Piso 1;C101;96;3
+Pocuro;Piso 1;C102;50;3
+Pocuro;Piso 2;C212;15;3
+Pocuro;Piso 3;C302;40;3
+Pocuro;Piso 3;C303;40;3
+Pocuro;Piso 3;C304;48;3
+Post Grado;Piso 1;P101;32;3
+Post Grado;Piso 1;P102;35;3
+Post Grado;Piso 1;P103;56;3
+Post Grado;Piso 1;P104;30;3
+Post Grado;Piso 1;P105;32;3
+Post Grado;Piso 1;P106;42;3
+Post Grado;Piso 1;P107;32;3
+Post Grado;Piso 2;P201;30;3
+Post Grado;Piso 2;P202;30;3
+Post Grado;Piso 2;P203;34;3
+Post Grado;Piso 2;P204;34;3
+Post Grado;Piso 2;P205;60;3
+Post Grado;Piso 2;P206;50;3
+Post Grado;Piso 2;P207;50;3
+Post Grado;Piso 2;P208;58;3
+Post Grado;Piso 2;P209;45;3
+Post Grado;Piso 2;P210;45;3
+Post Grado;Piso 3;P301;41;3
+Post Grado;Piso 3;P302;40;3
+Post Grado;Piso 3;P303;40;3
+Post Grado;Piso 3;P304;40;3
+Post Grado;Piso 3;P305;118;3
+Post Grado;Piso 3;P306;80;3
+Post Grado;Piso 3;P307;40;3
+Post Grado;Piso 3;P308;40;3
+Post Grado;Piso 3;P309;40;3
+Post Grado;Piso 4;P401;35;3
+Post Grado;Piso 4;P402;35;3
+Post Grado;Piso 4;P403;35;3
+Post Grado;Piso 4;P404;32;3
+Post Grado;Piso 4;P405;30;3
+Post Grado;Piso 4;P406;35;3
+Post Grado;Piso 4;P407;20;3
+Post Grado;Piso 4;P408;35;3
+Post Grado;Piso 4;P409;35;3
+Post Grado;Piso 4;P410;30;3
+Post Grado;Piso -1;PS101;24;3
+Post Grado;Piso -1;PS102;18;3
+Post Grado;Piso -1;PS104;30;3
